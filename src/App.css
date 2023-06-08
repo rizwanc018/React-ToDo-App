@@ -90,3 +90,7 @@ h2 {
   margin-top: 2rem;
 }
 
+.lineThrough {
+  text-decoration: line-through
+}
+

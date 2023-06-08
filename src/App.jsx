@@ -22,6 +22,10 @@ function App() {
     }))
   }
 
+  const deleteTodos = (todoObj) => {
+    setTodos(todos.filter(todo => todo.id != todoObj.id))
+  }
+
   return (
     <div className="app">
       <div className="mainHeading">
@@ -48,12 +52,11 @@ function App() {
                     <p>{todoObj.text}</p>
                   </div>
                   <div className="right">
-                    <i className="fas fa-times"></i>
+                    <i onClick={() => deleteTodos(todoObj)} className="fas fa-times"></i>
                   </div>
                 </div>
               )
             }
-
           })
         }
 
@@ -67,13 +70,13 @@ function App() {
               return (
                 // eslint-disable-next-line react/jsx-key
                 <div className="todo">
-                  <div className="left">
+                  <div className="left lineThrough">
                     <input onChange={(e) => handleCheckbox(e, todoObj)}
                       checked={todoObj.status} type="checkbox" name="" id="" />
                     <p>{todoObj.text}</p>
                   </div>
                   <div className="right">
-                    <i className="fas fa-times"></i>
+                    <i onClick={() => deleteTodos(todoObj)} className="fas fa-times"></i>
                   </div>
                 </div>
               )
