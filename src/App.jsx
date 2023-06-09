@@ -1,15 +1,16 @@
 /* eslint-disable no-empty */
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import './App.css'
 
 
 function App() {
   const [todos, setTodos] = useState([])
   const [todo, setTodo] = useState('')
-
+  const count = useRef(0)
   const updateTodos = () => {
     setTodos([...todos, { id: Date.now(), text: todo, status: false }])
+    count.current = count.current + 1
     setTodo('')
   }
 
@@ -24,6 +25,7 @@ function App() {
 
   const deleteTodos = (todoObj) => {
     setTodos(todos.filter(todo => todo.id != todoObj.id))
+    count.current = count.current - 1
   }
 
   return (
@@ -34,6 +36,8 @@ function App() {
       <div className="subHeading">
         <br />
         <h2>Whoop, it's WONDERFUL day 🌝 ☕ </h2>
+        <br />
+        <h3 style={{ color: 'white' }}>Things to do: {count.current}</h3>
       </div>
       <div className="input">
         <input value={todo} onChange={e => setTodo(e.target.value)} type="text" placeholder="🖊️ Add item..." />
