@@ -1,13 +1,20 @@
 /* eslint-disable no-empty */
 /* eslint-disable react/no-unescaped-entities */
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 
 function App() {
   const [todos, setTodos] = useState([])
   const [todo, setTodo] = useState('')
+
   const count = useRef(0)
+  const inputRef = useRef()
+
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [todos])
+
   const updateTodos = () => {
     setTodos([...todos, { id: Date.now(), text: todo, status: false }])
     count.current = count.current + 1
@@ -40,7 +47,13 @@ function App() {
         <h3 style={{ color: 'white' }}>Things to do: {count.current}</h3>
       </div>
       <div className="input">
-        <input value={todo} onChange={e => setTodo(e.target.value)} type="text" placeholder="🖊️ Add item..." />
+        <input
+          ref={inputRef}
+          value={todo}
+          onChange={e => setTodo(e.target.value)}
+          type="text"
+          placeholder="🖊️ Add item..."
+        />
         <i onClick={updateTodos} className="fas fa-plus"></i>
       </div>
       <div className="todos">
