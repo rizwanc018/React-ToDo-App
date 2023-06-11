@@ -16,15 +16,18 @@ function App() {
   }, [todos])
 
   const updateTodos = () => {
-    setTodos([...todos, { id: Date.now(), text: todo, status: false }])
-    count.current = count.current + 1
-    setTodo('')
+    if (todo.trim()) {
+      setTodos([...todos, { id: Date.now(), text: todo, status: false }])
+      count.current = count.current + 1
+      setTodo('')
+    }
   }
 
   const handleCheckbox = (e, todoObj) => {
     setTodos(todos.filter(obj => {
       if (obj.id === todoObj.id) {
         todoObj.status = e.target.checked
+        e.target.checked ? count.current = count.current - 1 : count.current = count.current + 1
       }
       return obj
     }))
